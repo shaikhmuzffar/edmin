@@ -17,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DxDataGridModule } from 'devextreme-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { HomeComponent } from './pages/home/home.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     SidbarComponent,
     DashboardComponent,
     TableComponent,
-    SurveyComponent
+    SurveyComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
