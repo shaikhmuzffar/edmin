@@ -34,7 +34,6 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-
     DxDataGridModule,
     HttpClientModule,
     TabsModule.forRoot()
