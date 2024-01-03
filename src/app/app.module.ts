@@ -17,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DxDataGridModule } from 'devextreme-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ToastrModule } from 'ngx-toastr';
 import { HomeComponent } from './pages/home/home.component';
 
 
@@ -30,7 +31,7 @@ import { HomeComponent } from './pages/home/home.component';
     DashboardComponent,
     TableComponent,
     SurveyComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +39,8 @@ import { HomeComponent } from './pages/home/home.component';
     ReactiveFormsModule,
     DxDataGridModule,
     HttpClientModule,
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    ToastrModule
   ],
   providers: [],
   bootstrap: [AppComponent]
