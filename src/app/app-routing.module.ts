@@ -29,6 +29,10 @@ const routes: Routes = [
         path: 'survey',
         component: SurveyComponent,
       },
+      {
+        path: 'survey/:id/edit',
+        component: SurveyComponent,
+      },
     ]
 
   },

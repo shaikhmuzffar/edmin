@@ -28,8 +28,9 @@ export class TableComponent {
   tableData: any;
   constructor(private apidata: ApiDataService, service: Service) {
     this.dataSource = service.getDataSource();
+
     apidata.getData().subscribe((res) => {
-      console.log("apidata:", res);
+      // console.log("apidata:", res);
       this.tableData = res;
     })
   }
@@ -45,11 +46,25 @@ export class TableComponent {
 
   printDa(event?: any) {
     this.currentRowData = event;
-    console.log("prindata", this.currentRowData);
+    // console.log("prindata", this.currentRowData);
   }
 
   addNewTab(event?: any) {
-    console.log("addNewTab", event);
+    
+    // get single data:
+    // this.apidata.getSingle(event.data.id).subscribe((res) => {
+    //   console.log("getSingle apidata:", res);
+    // })
+
+    this.apidata.getSingle(event.data.id).subscribe({
+      next:(res:any) => {
+        console.log("individual employee apidata:", res);
+        alert(res.success);
+      },
+    })
+
+    // console.log("addNewTab", event);
+
     const newTabIndex = this.tabs.length + 1;
     this.tabs.push({
       title: `Dynamic Title ${newTabIndex}`,
@@ -58,6 +73,34 @@ export class TableComponent {
       disabled: false,
       removable: true
     });
+  }
+
+
+// for delete button
+  deleteRow(event?: any) {
+    // console.log("deleteRow", event);
+    
+    if(confirm('do you want to delete?')){
+      // alert(`${event.data.name} info deleted!`)
+      
+      this.apidata.deleteEmployee(event.data.id).subscribe({
+        next: (res:any) => {
+          console.log("deleted response:", res);
+          alert(res.message);
+        },
+      })
+
+      // this.apidata.deleteEmployee(event.data.id).subscribe((res) => {
+      //   console.log("deleted response:", res);
+      // })
+
+      console.log("row deleted")
+    }
+  }
+
+  editRow(event?: any) {
+    // console.log("editRow", event);
+    // prompt('do you want to delete?')
   }
 
   removeTabHandler(tab: ITab): void {

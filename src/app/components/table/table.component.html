@@ -30,14 +30,26 @@
                         <dxi-column dataField="gender" caption="Gender" dataType="string"
                             cellTemplate="genderTemplate">
                         </dxi-column>
+                        <dxi-column dataField="actions" caption="actions" cellTemplate="actionTemp"></dxi-column>
+
                         <div *dxTemplate="let g of 'genderTemplate'">
                             {{ g.value == 1 ? 'Male' : (g.value == 2 ? 'Female' : '') }}
                         </div>
 
                         <!-- view button  -->
                         <div *dxTemplate="let at of 'viewTemp'">
-                            <a class="btn btn-primary btn-sm" title="Edit" (click)="addNewTab(at.row)">
+                            <a class="btn  btn-success btn-sm" title="Edit" (click)="addNewTab(at.row)">
                                 <i class="fa-regular fa-eye"></i>
+                            </a>
+                        </div>
+
+                        <!-- actions -->
+                        <div *dxTemplate="let at of 'actionTemp'">
+                            <a class="btn btn-warning  btn-sm" routerLink="/survey/{{at.row.data.id}}/edit" title="Edit" (click)="editRow(at.row)">
+                                edit
+                            </a>
+                            <a class="btn btn-danger btn-sm px-2s" title="Edit" (click)="deleteRow(at.row)">
+                                delete
                             </a>
                         </div>
 

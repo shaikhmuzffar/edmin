@@ -27,91 +27,185 @@
     </div>
 
     <!-- form -->
-    <div class="module-body">
-        <form class="form-horizontal row-fluid" *ngIf="loginForm" [formGroup]="loginForm">
-            <!-- name -->
-            <div class="control-group ">
-                <label class="control-label" for="name">Full name</label>
-                <div class="controls">
-                    <input type="text" name="name" placeholder="enter  your full name..." class="span8"
-                        formControlName="name">
-                    <span *ngIf="name && name.invalid && name.touched" class="help-inline"
-                        style="color: red;">*minimum 3 characters and contain alphabets </span>
+    <div *ngIf="employeeInfo; else elseForm">
+
+        <div class="module-body">
+            <form class="form-horizontal row-fluid" *ngIf="loginForm" [formGroup]="loginForm">
+                <!-- name -->
+                <div class="control-group ">
+                    <label class="control-label" for="name">Full name</label>
+                    <div class="controls">
+                        <input type="text" name="name" placeholder="enter  your full name..." class="span8"
+                            formControlName="name">
+                        <span *ngIf="name && name.invalid && name.touched" class="help-inline"
+                            style="color: red;">*minimum 3 characters and contain alphabets </span>
+                    </div>
                 </div>
-            </div>
 
-            <!-- phone number -->
-            <div class="control-group">
-                <label class="control-label" for="phone">phone</label>
-                <div class="controls">
-                    <input type="number" name="phone" placeholder="enter your mobile number..." class="span8"
-                        formControlName="phone">
-                    <span *ngIf="phone!.hasError('required') && phone!.touched" class="help-inline"
-                        style="color: red;">phone is required.</span>
-                    <span *ngIf="phone!.hasError('pattern') && phone!.touched" class="help-inline"
-                        style="color: red;">Please enter a valid 10-digit number.</span>
+                <!-- phone number -->
+                <div class="control-group">
+                    <label class="control-label" for="phone">phone</label>
+                    <div class="controls">
+                        <input type="number" name="phone" placeholder="enter your mobile number..." class="span8"
+                            formControlName="phone">
+                        <span *ngIf="phone!.hasError('required') && phone!.touched" class="help-inline"
+                            style="color: red;">phone is required.</span>
+                        <span *ngIf="phone!.hasError('pattern') && phone!.touched" class="help-inline"
+                            style="color: red;">Please enter a valid 10-digit number.</span>
 
+                    </div>
                 </div>
-            </div>
 
-            <!-- email -->
-            <div class="control-group">
-                <label class="control-label" for="email">Email</label>
-                <div class="controls">
-                    <input type="email" name="email" placeholder="enter your email here..." class="span8"
-                        formControlName="email">
-                    <span *ngIf="email && email.invalid && email.touched" class="help-inline"
-                        style="color: red;">invalid phone number</span>
+                <!-- email -->
+                <div class="control-group">
+                    <label class="control-label" for="email">Email</label>
+                    <div class="controls">
+                        <input type="email" name="email" placeholder="enter your email here..." class="span8"
+                            formControlName="email">
+                        <span *ngIf="email && email.invalid && email.touched" class="help-inline"
+                            style="color: red;">invalid phone number</span>
+                    </div>
                 </div>
-            </div>
+
+                <!-- hobbies -->
+                <!-- <div class="control-group">
+                    <label class="control-label">Hobbies</label>
+                    <div class="controls" *ngFor="let hobby of hobbiesData">
+                        <label class="checkbox">
+                            <input type="checkbox" name={{hobby.name}} formControlName={{hobby.name}}>
+                            {{hobby.name}}
+                        </label>
+                    </div>
+                </div> -->
 
 
-
-            <div class="control-group">
-                <label class="control-label">Hobbies</label>
-                <div class="controls" *ngFor="let hobby of hobbiesData">
-                    <label class="checkbox">
-                        <input type="checkbox" name={{hobby.name}} formControlName={{hobby.name}}>
-                        {{hobby.name}}
-                    </label>
+                <!-- gender -->
+                <div class="control-group">
+                    <label class="control-label">gender</label>
+                    <div class="controls">
+                        <label class="radio inline">
+                            <input type="radio" name="gender" id="male" value="0" formControlName="gender" checked>
+                            Male
+                        </label>
+                        <label class="radio inline">
+                            <input type="radio" name="gender" id="female" value="1" formControlName="gender">
+                            Female
+                        </label>
+                    </div>
                 </div>
-            </div>
 
-
-            <!-- gender -->
-            <div class="control-group">
-                <label class="control-label">gender</label>
-                <div class="controls">
-                    <label class="radio inline">
-                        <input type="radio" name="gender" id="male" value="0" formControlName="gender" checked>
-                        Male
-                    </label>
-                    <label class="radio inline">
-                        <input type="radio" name="gender" id="female" value="1" formControlName="gender">
-                        Female
-                    </label>
+                <!-- address -->
+                <div class="control-group">
+                    <label class="control-label" for="address">Address</label>
+                    <div class="controls">
+                        <textarea class="span8" rows="5" formControlName="address" name="address"
+                            placeholder="say somthing..."></textarea>
+                    </div>
+                    <!-- <span *ngIf="address" class="help-inline" style="color: red;" >please enter somthing...</span> -->
                 </div>
-            </div>
 
-            <!-- address -->
-            <div class="control-group">
-                <label class="control-label" for="address">Address</label>
-                <div class="controls">
-                    <textarea class="span8" rows="5" formControlName="address" name="address"
-                        placeholder="say somthing..."></textarea>
+
+                <!-- button -->
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" (click)="printForm()" class="btn" [disabled]="loginForm.invalid">Submit
+                            Form</button>
+                    </div>
                 </div>
-                <!-- <span *ngIf="address" class="help-inline" style="color: red;" >please enter somthing...</span> -->
-            </div>
 
-
-            <!-- button -->
-            <div class="control-group">
-                <div class="controls">
-                    <button type="submit" (click)="printForm()" class="btn"
-                        [disabled]="loginForm.invalid">Submit Form</button>
-                </div>
-            </div>
-
-        </form>
+            </form>
+        </div>
     </div>
+
+    <!-- ELSE FORM -->
+
+    <ng-template #elseForm>
+        <div class="module-body">
+            <form class="form-horizontal row-fluid" *ngIf="loginForm" [formGroup]="loginForm">
+                <!-- name -->
+                <div class="control-group ">
+                    <label class="control-label" for="name">Full name</label>
+                    <div class="controls">
+                        <input type="text" name="name" placeholder="enter  your full name..." class="span8"
+                            formControlName="name">
+                        <span *ngIf="name && name.invalid && name.touched" class="help-inline"
+                            style="color: red;">*minimum 3 characters and contain alphabets </span>
+                    </div>
+                </div>
+
+                <!-- phone number -->
+                <div class="control-group">
+                    <label class="control-label" for="phone">phone</label>
+                    <div class="controls">
+                        <input type="number" name="phone" placeholder="enter your mobile number..." class="span8"
+                            formControlName="phone">
+                        <span *ngIf="phone!.hasError('required') && phone!.touched" class="help-inline"
+                            style="color: red;">phone is required.</span>
+                        <span *ngIf="phone!.hasError('pattern') && phone!.touched" class="help-inline"
+                            style="color: red;">Please enter a valid 10-digit number.</span>
+
+                    </div>
+                </div>
+
+                <!-- email -->
+                <div class="control-group">
+                    <label class="control-label" for="email">Email</label>
+                    <div class="controls">
+                        <input type="email" name="email" placeholder="enter your email here..." class="span8"
+                            formControlName="email">
+                        <span *ngIf="email && email.invalid && email.touched" class="help-inline"
+                            style="color: red;">invalid phone number</span>
+                    </div>
+                </div>
+
+
+
+                <div class="control-group">
+                    <label class="control-label">Hobbies</label>
+                    <div class="controls" *ngFor="let hobby of hobbiesData">
+                        <label class="checkbox">
+                            <input type="checkbox" name={{hobby.name}} formControlName={{hobby.name}}>
+                            {{hobby.name}}
+                        </label>
+                    </div>
+                </div>
+
+
+                <!-- gender -->
+                <div class="control-group">
+                    <label class="control-label">gender</label>
+                    <div class="controls">
+                        <label class="radio inline">
+                            <input type="radio" name="gender" id="male" value="0" formControlName="gender" checked>
+                            Male
+                        </label>
+                        <label class="radio inline">
+                            <input type="radio" name="gender" id="female" value="1" formControlName="gender">
+                            Female
+                        </label>
+                    </div>
+                </div>
+
+                <!-- address -->
+                <div class="control-group">
+                    <label class="control-label" for="address">Address</label>
+                    <div class="controls">
+                        <textarea class="span8" rows="5" formControlName="address" name="address"
+                            placeholder="say somthing..."></textarea>
+                    </div>
+                    <!-- <span *ngIf="address" class="help-inline" style="color: red;" >please enter somthing...</span> -->
+                </div>
+
+
+                <!-- button -->
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" (click)="printForm()" class="btn" [disabled]="loginForm.invalid">Submit
+                            Form</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </ng-template>
 </div>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ApiDataService } from 'src/app/services/api-data.service';
 
 //  bootstrap toaster 
@@ -14,9 +15,33 @@ import { ApiDataService } from 'src/app/services/api-data.service';
 export class SurveyComponent {
 
   // constructor(private apidata:ApiDataService,private toastr: ToastrService){}
-  constructor(private apidata:ApiDataService){}
+
+  employeeID!:any;
+  employeeInfo!:any;
 
   employeeDetails: any = [];
+
+  constructor(private apidata:ApiDataService, private route:ActivatedRoute){}
+
+
+  ngOnInit() {
+    this.employeeID = this.route.snapshot.paramMap.get('id');
+    this.apidata.getSingle(this.employeeID).subscribe((res: any) => {
+      this.employeeInfo = res.data;
+
+      // console.log(this.employeeInfo)
+
+      this.loginForm.patchValue({
+        name: this.employeeInfo.name,
+        phone: this.employeeInfo.phone,
+        email: this.employeeInfo.email,
+        gender: this.employeeInfo.gender,
+        address: this.employeeInfo.address
+      });
+    });
+  }
+
+
 
   loginForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -46,12 +71,12 @@ export class SurveyComponent {
     const formData = this.loginForm.value;
     this.employeeDetails.push(formData);
     // api call:
-    // this.apidata.sendData(formData).subscribe((result) => {
-    //   console.warn(result);
-    // })
+    this.apidata.sendData(formData).subscribe((result) => {
+      console.warn(result);
+    })
 
     // to reset the form data
-    // this.loginForm.reset();
+    this.loginForm.reset();
 
     console.log(this.employeeDetails);
     // this.toastr.success("you have dhdghgfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff a new toast")
